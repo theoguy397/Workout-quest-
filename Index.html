@@ -1,1 +1,263 @@
+<!DOCTYPE html>
 
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Workout Quest</title>
+
+<style>
+
+body{margin:0;background:#0b1020;color:white;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+
+.app{max-width:650px;margin:auto;padding:18px}
+
+h1{font-size:32px;margin:5px 0}
+
+.card{background:#151d32;border:1px solid #29334d;border-radius:20px;padding:18px;margin:14px 0}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+.stat{background:#202a43;padding:14px;border-radius:15px;text-align:center}
+
+.big{font-size:25px;font-weight:bold}
+
+.muted{color:#aab5cf}
+
+.progress{height:12px;background:#303b58;border-radius:20px;overflow:hidden}
+
+.bar{height:100%;width:0;background:#7c5cff}
+
+.exercise{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #29334d}
+
+button{border:0;border-radius:13px;padding:12px;background:#7c5cff;color:white;font-size:16px;font-weight:bold}
+
+.exercise button{font-size:14px}
+
+.done{opacity:.5;text-decoration:line-through}
+
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+
+.badge{background:#202a43;padding:10px;border-radius:12px}
+
+.full{width:100%;margin-top:12px}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="muted">⚡ WORKOUT QUEST</div>
+
+<h1 id="rank">Rookie I</h1>
+
+<div class="card">
+
+<div class="stats">
+
+<div class="stat"><div class="big" id="level">1</div><div class="muted">Level</div></div>
+
+<div class="stat"><div class="big" id="xp">0</div><div class="muted">XP</div></div>
+
+<div class="stat"><div class="big" id="streak">0</div><div class="muted">🔥 Streak</div></div>
+
+</div>
+
+<p id="next">100 XP to Level 2</p>
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+</div>
+
+<div class="card">
+
+<h2>🎯 Today's Quest</h2>
+
+<p class="muted">Complete every exercise to finish your quest!</p>
+
+<div id="list"></div>
+
+<button id="finish" class="full" disabled>
+
+Finish Workout +50 XP
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>🏆 Badges</h2>
+
+<div class="badges" id="badges"></div>
+
+</div>
+
+<div class="card">
+
+<p class="muted">
+
+🛡️ Stay safe: use good technique, keep the workout comfortable,
+
+and stop if something hurts. Ask a trusted adult for help with
+
+exercise equipment.
+
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const exercises=[
+
+["Squats","8 reps"],
+
+["Dumbbell Row","8 each side"],
+
+["Curls","8 reps"],
+
+["Lunges","6 each leg"],
+
+["Plank","15–20 seconds"]
+
+];
+
+let data=JSON.parse(localStorage.getItem("WorkoutQuest")||'{"xp":0,"streak":0,"done":[],"workouts":0}');
+
+function save(){
+
+localStorage.setItem("WorkoutQuest",JSON.stringify(data));
+
+}
+
+function level(){
+
+return Math.floor(data.xp/100)+1;
+
+}
+
+function rank(){
+
+let l=level();
+
+if(l>=10)return"Champion";
+
+if(l>=5)return"Power Hero";
+
+if(l>=3)return"Speed Hero";
+
+if(l>=2)return"Rookie II";
+
+return"Rookie I";
+
+}
+
+function render(){
+
+document.getElementById("level").textContent=level();
+
+document.getElementById("xp").textContent=data.xp;
+
+document.getElementById("streak").textContent=data.streak;
+
+document.getElementById("rank").textContent=rank();
+
+let progress=data.xp%100;
+
+document.getElementById("bar").style.width=progress+"%";
+
+document.getElementById("next").textContent=
+
+(100-progress)+" XP to Level "+(level()+1);
+
+let list=document.getElementById("list");
+
+list.innerHTML="";
+
+exercises.forEach((e,i)=>{
+
+let finished=data.done.includes(i);
+
+let row=document.createElement("div");
+
+row.className="exercise"+(finished?" done":"");
+
+row.innerHTML=
+
+"<span><b>"+e[0]+"</b><br>"+
+
+"<small class='muted'>"+e[1]+" • +20 XP</small></span>";
+
+let button=document.createElement("button");
+
+button.textContent=finished?"Done ✓":"Complete";
+
+button.disabled=finished;
+
+button.onclick=function(){
+
+data.done.push(i);
+
+data.xp+=20;
+
+save();
+
+render();
+
+};
+
+row.appendChild(button);
+
+list.appendChild(row);
+
+});
+
+document.getElementById("finish").disabled=
+
+data.done.length!==exercises.length;
+
+document.getElementById("badges").innerHTML=
+
+"<div class='badge' style='opacity:"+(data.workouts>=1?1:.3)+"'>🌟 First Steps</div>"+
+
+"<div class='badge' style='opacity:"+(data.streak>=3?1:.3)+"'>🔥 3-Day Streak</div>"+
+
+"<div class='badge' style='opacity:"+(level()>=5?1:.3)+"'>⚡ Level 5</div>"+
+
+"<div class='badge' style='opacity:"+(level()>=10?1:.3)+"'>🏆 Champion</div>";
+
+}
+
+document.getElementById("finish").onclick=function(){
+
+data.xp+=50;
+
+data.workouts++;
+
+data.streak++;
+
+data.done=[];
+
+save();
+
+render();
+
+alert("QUEST COMPLETE! 🎉 +50 XP");
+
+};
+
+render();
+
+</script>
+
+</body>
+
+</html>
