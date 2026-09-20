@@ -10,39 +10,275 @@
 
 <style>
 
-body{margin:0;background:#0b1020;color:white;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+*{
 
-.app{max-width:650px;margin:auto;padding:18px}
+  box-sizing:border-box;
 
-h1{font-size:32px;margin:5px 0}
+}
 
-.card{background:#151d32;border:1px solid #29334d;border-radius:20px;padding:18px;margin:14px 0}
+body{
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  margin:0;
 
-.stat{background:#202a43;padding:14px;border-radius:15px;text-align:center}
+  background:#0b1020;
 
-.big{font-size:25px;font-weight:bold}
+  color:white;
 
-.muted{color:#aab5cf}
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 
-.progress{height:12px;background:#303b58;border-radius:20px;overflow:hidden}
+}
 
-.bar{height:100%;width:0;background:#7c5cff}
+.app{
 
-.exercise{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #29334d}
+  max-width:650px;
 
-button{border:0;border-radius:13px;padding:12px;background:#7c5cff;color:white;font-size:16px;font-weight:bold}
+  margin:auto;
 
-.exercise button{font-size:14px}
+  padding:18px;
 
-.done{opacity:.5;text-decoration:line-through}
+}
 
-.badges{display:flex;gap:8px;flex-wrap:wrap}
+h1{
 
-.badge{background:#202a43;padding:10px;border-radius:12px}
+  text-align:center;
 
-.full{width:100%;margin-top:12px}
+  margin-bottom:5px;
+
+}
+
+.subtitle{
+
+  text-align:center;
+
+  color:#aab4d4;
+
+}
+
+.stats{
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:10px;
+
+  margin:20px 0;
+
+}
+
+.stat{
+
+  background:#171e35;
+
+  padding:15px 5px;
+
+  border-radius:15px;
+
+  text-align:center;
+
+}
+
+.stat b{
+
+  display:block;
+
+  font-size:22px;
+
+}
+
+.card{
+
+  background:#171e35;
+
+  border-radius:20px;
+
+  padding:18px;
+
+  margin-top:15px;
+
+}
+
+button{
+
+  border:0;
+
+  border-radius:12px;
+
+  padding:13px 16px;
+
+  margin:5px;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+}
+
+.primary{
+
+  background:#5b7cff;
+
+  color:white;
+
+}
+
+.green{
+
+  background:#38c978;
+
+  color:white;
+
+}
+
+.orange{
+
+  background:#ff9f43;
+
+  color:white;
+
+}
+
+button:disabled{
+
+  opacity:.45;
+
+  cursor:not-allowed;
+
+}
+
+.world{
+
+  min-height:270px;
+
+  border-radius:20px;
+
+  padding:18px;
+
+  margin-top:15px;
+
+  background:#315f3c;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.world h2{
+
+  margin-top:0;
+
+}
+
+.buildings{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+
+}
+
+.building{
+
+  background:white;
+
+  color:#111;
+
+  padding:15px;
+
+  border-radius:14px;
+
+  font-size:18px;
+
+  min-width:100px;
+
+  text-align:center;
+
+}
+
+.locked{
+
+  text-align:center;
+
+  padding:30px 10px;
+
+  color:#d8def2;
+
+}
+
+.message{
+
+  text-align:center;
+
+  min-height:25px;
+
+  color:#ffd166;
+
+  font-weight:bold;
+
+}
+
+.quest{
+
+  background:#202943;
+
+  padding:13px;
+
+  border-radius:14px;
+
+  margin:8px 0;
+
+}
+
+.progress{
+
+  height:12px;
+
+  background:#303a58;
+
+  border-radius:10px;
+
+  overflow:hidden;
+
+  margin-top:8px;
+
+}
+
+.progress div{
+
+  height:100%;
+
+  background:#5b7cff;
+
+  width:0%;
+
+}
+
+.tabs{
+
+  display:flex;
+
+  gap:6px;
+
+  overflow-x:auto;
+
+}
+
+.tabs button{
+
+  white-space:nowrap;
+
+}
+
+.hidden{
+
+  display:none;
+
+}
 
 </style>
 
@@ -52,212 +288,543 @@ button{border:0;border-radius:13px;padding:12px;background:#7c5cff;color:white;f
 
 <div class="app">
 
-<div class="muted">⚡ WORKOUT QUEST</div>
+<h1>🏋️ Workout Quest</h1>
 
-<h1 id="rank">Rookie I</h1>
-
-<div class="card">
+<div class="subtitle">Train. Earn. Build. Explore.</div>
 
 <div class="stats">
 
-<div class="stat"><div class="big" id="level">1</div><div class="muted">Level</div></div>
+  <div class="stat">
 
-<div class="stat"><div class="big" id="xp">0</div><div class="muted">XP</div></div>
+    🪙
 
-<div class="stat"><div class="big" id="streak">0</div><div class="muted">🔥 Streak</div></div>
+    <b id="coins">500</b>
 
-</div>
+    Coins
 
-<p id="next">100 XP to Level 2</p>
+  </div>
 
-<div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="stat">
+
+    ⭐
+
+    <b id="xp">0</b>
+
+    XP
+
+  </div>
+
+  <div class="stat">
+
+    🏆
+
+    <b id="level">1</b>
+
+    Level
+
+  </div>
 
 </div>
 
 <div class="card">
 
-<h2>🎯 Today's Quest</h2>
+<h2>🏋️ Quests</h2>
 
-<p class="muted">Complete every exercise to finish your quest!</p>
+<div class="quest">
 
-<div id="list"></div>
+  <b>💪 Quick Workout</b>
 
-<button id="finish" class="full" disabled>
+  <p>Complete a workout.</p>
 
-Finish Workout +50 XP
+  <button class="green" onclick="completeWorkout()">
+
+    Complete +100 Coins
+
+  </button>
+
+</div>
+
+<div class="quest">
+
+  <b>🔥 Big Challenge</b>
+
+  <p>Complete a harder challenge.</p>
+
+  <button class="orange" onclick="bigChallenge()">
+
+    Complete +250 Coins
+
+  </button>
+
+</div>
+
+<div class="progress">
+
+  <div id="xpBar"></div>
+
+</div>
+
+<p id="xpText">0 / 500 XP</p>
+
+</div>
+
+<div class="card">
+
+<h2>🌎 Worlds</h2>
+
+<div class="tabs">
+
+<button class="primary" onclick="showWorld('forest')">
+
+🌲 Forest
+
+</button>
+
+<button class="primary" onclick="showWorld('desert')">
+
+🏜️ Desert
+
+</button>
+
+<button class="primary" onclick="showWorld('ice')">
+
+❄️ Ice
 
 </button>
 
 </div>
 
-<div class="card">
+<div id="forestWorld" class="world">
 
-<h2>🏆 Badges</h2>
+<h2>🌲 Forest World</h2>
 
-<div class="badges" id="badges"></div>
+<p>Build your own town!</p>
+
+<div class="buildings" id="forestBuildings"></div>
+
+</div>
+
+<div id="desertWorld" class="world hidden">
+
+<h2>🏜️ Desert World</h2>
+
+<div id="desertLocked" class="locked">
+
+  <h2>🔒 Locked</h2>
+
+  <p>Reach Level 3 to unlock this world.</p>
+
+  <p>Cost: 1,000 coins</p>
+
+  <button class="orange" onclick="unlockDesert()">
+
+    Unlock Desert
+
+  </button>
+
+</div>
+
+<div id="desertUnlocked" class="hidden">
+
+<p>Build your desert town!</p>
+
+<div class="buildings" id="desertBuildings"></div>
+
+</div>
+
+</div>
+
+<div id="iceWorld" class="world hidden">
+
+<h2>❄️ Ice World</h2>
+
+<div class="locked">
+
+  <h2>🔒 Coming Soon</h2>
+
+  <p>Reach Level 5 to unlock Ice World!</p>
+
+</div>
+
+</div>
 
 </div>
 
 <div class="card">
 
-<p class="muted">
+<h2>🏗️ Build</h2>
 
-🛡️ Stay safe: use good technique, keep the workout comfortable,
+<button class="green" onclick="build('house')">
 
-and stop if something hurts. Ask a trusted adult for help with
+🏠 House — 200
 
-exercise equipment.
+</button>
 
-</p>
+<button class="green" onclick="build('shop')">
+
+🏪 Shop — 500
+
+</button>
+
+<button class="green" onclick="build('farm')">
+
+🌾 Farm — 750
+
+</button>
+
+<button class="green" onclick="build('park')">
+
+🌳 Park — 300
+
+</button>
 
 </div>
+
+<div class="message" id="message"></div>
 
 </div>
 
 <script>
 
-const exercises=[
+let game = JSON.parse(localStorage.getItem("workoutQuestGame")) || {
 
-["Squats","8 reps"],
+  coins:500,
 
-["Dumbbell Row","8 each side"],
+  xp:0,
 
-["Curls","8 reps"],
+  level:1,
 
-["Lunges","6 each leg"],
+  desertUnlocked:false,
 
-["Plank","15–20 seconds"]
+  forestBuildings:[],
 
-];
+  desertBuildings:[]
 
-let data=JSON.parse(localStorage.getItem("WorkoutQuest")||'{"xp":0,"streak":0,"done":[],"workouts":0}');
+};
 
 function save(){
 
-localStorage.setItem("WorkoutQuest",JSON.stringify(data));
+  localStorage.setItem(
+
+    "workoutQuestGame",
+
+    JSON.stringify(game)
+
+  );
 
 }
 
-function level(){
+function update(){
 
-return Math.floor(data.xp/100)+1;
+  document.getElementById("coins").textContent =
 
-}
+    game.coins;
 
-function rank(){
+  document.getElementById("xp").textContent =
 
-let l=level();
+    game.xp;
 
-if(l>=10)return"Champion";
+  document.getElementById("level").textContent =
 
-if(l>=5)return"Power Hero";
+    game.level;
 
-if(l>=3)return"Speed Hero";
+  let needed = game.level * 500;
 
-if(l>=2)return"Rookie II";
+  let percent =
 
-return"Rookie I";
+    Math.min(100,(game.xp / needed) * 100);
 
-}
+  document.getElementById("xpBar").style.width =
 
-function render(){
+    percent + "%";
 
-document.getElementById("level").textContent=level();
+  document.getElementById("xpText").textContent =
 
-document.getElementById("xp").textContent=data.xp;
+    game.xp + " / " + needed + " XP";
 
-document.getElementById("streak").textContent=data.streak;
+  document.getElementById("desertLocked").classList.toggle(
 
-document.getElementById("rank").textContent=rank();
+    "hidden",
 
-let progress=data.xp%100;
+    game.desertUnlocked
 
-document.getElementById("bar").style.width=progress+"%";
+  );
 
-document.getElementById("next").textContent=
+  document.getElementById("desertUnlocked").classList.toggle(
 
-(100-progress)+" XP to Level "+(level()+1);
+    "hidden",
 
-let list=document.getElementById("list");
+    !game.desertUnlocked
 
-list.innerHTML="";
+  );
 
-exercises.forEach((e,i)=>{
+  drawBuildings();
 
-let finished=data.done.includes(i);
-
-let row=document.createElement("div");
-
-row.className="exercise"+(finished?" done":"");
-
-row.innerHTML=
-
-"<span><b>"+e[0]+"</b><br>"+
-
-"<small class='muted'>"+e[1]+" • +20 XP</small></span>";
-
-let button=document.createElement("button");
-
-button.textContent=finished?"Done ✓":"Complete";
-
-button.disabled=finished;
-
-button.onclick=function(){
-
-data.done.push(i);
-
-data.xp+=20;
-
-save();
-
-render();
-
-};
-
-row.appendChild(button);
-
-list.appendChild(row);
-
-});
-
-document.getElementById("finish").disabled=
-
-data.done.length!==exercises.length;
-
-document.getElementById("badges").innerHTML=
-
-"<div class='badge' style='opacity:"+(data.workouts>=1?1:.3)+"'>🌟 First Steps</div>"+
-
-"<div class='badge' style='opacity:"+(data.streak>=3?1:.3)+"'>🔥 3-Day Streak</div>"+
-
-"<div class='badge' style='opacity:"+(level()>=5?1:.3)+"'>⚡ Level 5</div>"+
-
-"<div class='badge' style='opacity:"+(level()>=10?1:.3)+"'>🏆 Champion</div>";
+  save();
 
 }
 
-document.getElementById("finish").onclick=function(){
+function message(text){
 
-data.xp+=50;
+  document.getElementById("message").textContent =
 
-data.workouts++;
+    text;
 
-data.streak++;
+  setTimeout(()=>{
 
-data.done=[];
+    document.getElementById("message").textContent="";
 
-save();
+  },3000);
 
-render();
+}
 
-alert("QUEST COMPLETE! 🎉 +50 XP");
+function addXP(amount){
 
-};
+  game.xp += amount;
 
-render();
+  let needed = game.level * 500;
+
+  while(game.xp >= needed){
+
+    game.xp -= needed;
+
+    game.level++;
+
+    game.coins += 300;
+
+    message(
+
+      "🎉 LEVEL UP! You reached Level " +
+
+      game.level +
+
+      " and earned 300 coins!"
+
+    );
+
+    needed = game.level * 500;
+
+  }
+
+}
+
+function completeWorkout(){
+
+  game.coins += 100;
+
+  addXP(100);
+
+  update();
+
+  message("💪 Workout complete! +100 coins!");
+
+}
+
+function bigChallenge(){
+
+  game.coins += 250;
+
+  addXP(250);
+
+  update();
+
+  message("🔥 Big challenge complete! +250 coins!");
+
+}
+
+function unlockDesert(){
+
+  if(game.desertUnlocked){
+
+    message("🏜️ Desert is already unlocked!");
+
+    return;
+
+  }
+
+  if(game.level < 3){
+
+    message("🔒 You need Level 3 first!");
+
+    return;
+
+  }
+
+  if(game.coins < 1000){
+
+    message(
+
+      "❌ You need " +
+
+      (1000-game.coins) +
+
+      " more coins!"
+
+    );
+
+    return;
+
+  }
+
+  game.coins -= 1000;
+
+  game.desertUnlocked=true;
+
+  update();
+
+  message("🏜️ Desert World unlocked!");
+
+}
+
+function showWorld(world){
+
+  document.getElementById("forestWorld")
+
+    .classList.toggle(
+
+      "hidden",
+
+      world !== "forest"
+
+    );
+
+  document.getElementById("desertWorld")
+
+    .classList.toggle(
+
+      "hidden",
+
+      world !== "desert"
+
+    );
+
+  document.getElementById("iceWorld")
+
+    .classList.toggle(
+
+      "hidden",
+
+      world !== "ice"
+
+    );
+
+}
+
+function build(type){
+
+  let costs={
+
+    house:200,
+
+    shop:500,
+
+    farm:750,
+
+    park:300
+
+  };
+
+  let emojis={
+
+    house:"🏠 House",
+
+    shop:"🏪 Shop",
+
+    farm:"🌾 Farm",
+
+    park:"🌳 Park"
+
+  };
+
+  let cost=costs[type];
+
+  if(game.coins < cost){
+
+    message(
+
+      "❌ You need " +
+
+      (cost-game.coins) +
+
+      " more coins!"
+
+    );
+
+    return;
+
+  }
+
+  game.coins -= cost;
+
+  let building=emojis[type];
+
+  if(game.desertUnlocked &&
+
+     document.getElementById("desertWorld")
+
+       .classList.contains("hidden") === false){
+
+    game.desertBuildings.push(building);
+
+  }else{
+
+    game.forestBuildings.push(building);
+
+  }
+
+  addXP(50);
+
+  update();
+
+  message("🏗️ You built a " + building + "!");
+
+}
+
+function drawBuildings(){
+
+  let forest =
+
+    document.getElementById("forestBuildings");
+
+  let desert =
+
+    document.getElementById("desertBuildings");
+
+  forest.innerHTML="";
+
+  desert.innerHTML="";
+
+  game.forestBuildings.forEach(building=>{
+
+    let div=document.createElement("div");
+
+    div.className="building";
+
+    div.textContent=building;
+
+    forest.appendChild(div);
+
+  });
+
+  game.desertBuildings.forEach(building=>{
+
+    let div=document.createElement("div");
+
+    div.className="building";
+
+    div.textContent=building;
+
+    desert.appendChild(div);
+
+  });
+
+}
+
+update();
 
 </script>
 
 </body>
 
 </html>
+
